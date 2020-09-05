@@ -1,5 +1,7 @@
 # TasksApp
 
+![Build](https://github.com/martinboykov/falcon-task/workflows/Build/badge.svg)
+
 Falcon Front-end development assignment
 
 ## Quickstart
@@ -11,4 +13,4 @@ Falcon Front-end development assignment
   - Its advisable to backup server/.tmp/localDiskDb if there is any valuable prodction data
 * `npm run server:prod` to run the sails server in production mode
 * `npm start` to run the dev server for angular app
-* `npm test` to run tests
+* `npm run test` to run tests
