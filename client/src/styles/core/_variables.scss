@@ -9,24 +9,13 @@
 // breakpoints
 // https://material.io/design/layout/responsive-layout-grid.html#breakpoints
 $min: 320px;
-$sm: 479px; // large handset
-$md: 719px; // small tablet
-$lg: 959px; // large tablet
-$xl: 1280; // desktop
+$sm:  479px; // large handset
+$md:  719px; // small tablet
+$lg:  959px; // large tablet
+$xl: 1280px; // desktop
 
 $spacer: 10px;
-:root {
-    --small-spacer: 10px;
-    --spacer: 20px;
-    --big-spacer: 30px;
-}
-@include mq($lg) {
-    :root {
-        --small-spacer: 5px;
-        --spacer: 10px;
-        --big-spacer: 15px;
-    }
-}
+
 // Font families
 $font-default: Roboto, 'Helvetica Neue', sans-serif;
 // $font-default: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',

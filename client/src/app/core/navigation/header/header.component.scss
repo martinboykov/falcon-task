@@ -1,0 +1,93 @@
+@import 'core/variables';
+@import 'core/mixins';
+
+.container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.side-nav-toggle-button {
+    margin-left: -40px;
+    opacity: 0;
+    @include transition();
+}
+a {
+    list-style: none;
+    text-decoration: none;
+    text-transform: none;
+    color: var(--header-nav-links-color);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: var(--spacer);
+    img {
+        width: 150px;
+    }
+}
+.nav {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    height: 100%;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    position: relative;
+    cursor: pointer;
+    &:before,
+    &:after {
+        position: absolute;
+        content: '';
+        height: 2px;
+        width: 0;
+        background-color: var(--header-nav-links-after-before-bg);
+        @include transition(width, 0.01s);
+    }
+    &:before {
+        top: 0;
+        right: 50%;
+    }
+    &:after {
+        top: 0;
+        left: 50%;
+    }
+    &:hover,
+    &:active {
+        &:before,
+        &:after {
+            width: 50%;
+            @include transition(width);
+        }
+    }
+    &.active {
+        &:before,
+        &:after {
+            position: absolute;
+            content: '';
+            height: 2px;
+            width: 50%;
+            @include transition(width, 0.01s);
+        }
+    }
+}
+@include mq($lg) {
+    .side-nav-toggle-button {
+        opacity: 1;
+        margin-left: 0px;
+    }
+    .nav {
+        display: none;
+    }
+}
+
+@include mq($md) {
+}
+@include mq($sm) {
+}

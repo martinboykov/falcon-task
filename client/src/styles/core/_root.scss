@@ -3,4 +3,28 @@
     --primary-text: #fff;
     --primary-bg: #fff;
     --secondary-text: rgba(0, 0.87);
+
+    --small-spacer: 10px;
+    --spacer: 20px;
+    --big-spacer: 30px;
+
+    --header-height: 64px;
+}
+
+@include mq($lg) {
+    :root {
+        --small-spacer: 5px;
+        --spacer: 10px;
+        --big-spacer: 15px;
+    }
+}
+
+@include mq($md) {
+    :root {
+        --header-height: 56px;
+    }
+}
+@include mq($sm) {
+    :root {
+    }
 }
