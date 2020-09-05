@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SideNavListComponent } from './side-nav-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 

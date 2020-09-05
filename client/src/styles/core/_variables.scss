@@ -9,9 +9,9 @@
 // breakpoints
 // https://material.io/design/layout/responsive-layout-grid.html#breakpoints
 $min: 320px;
-$sm:  479px; // large handset
-$md:  719px; // small tablet
-$lg:  959px; // large tablet
+$sm: 479px; // large handset
+$md: 719px; // small tablet
+$lg: 959px; // large tablet
 $xl: 1280px; // desktop
 
 $spacer: 10px;
@@ -24,6 +24,8 @@ $primary: map-get(
     $map: $mat-deep-purple,
     $key: 500,
 );
-
+$primary-text: #fff;
+$primary-bg: #fff;
+$secondary-text: rgba(0, 0, 0, 0.87);
 $primary-text: $light-primary-text;
 $secondary-text: $dark-primary-text;

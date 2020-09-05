@@ -1,10 +1,8 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-// tslint:disable-next-line: component-selector
-@Component({ selector: 'router-outlet', template: '' })
-class RouterOutletStubComponent {}
+
 
 describe('AppComponent', () => {
     let app: AppComponent;
@@ -12,7 +10,7 @@ describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule],
-            declarations: [AppComponent, RouterOutletStubComponent],
+            declarations: [AppComponent],
             providers: [],
             schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
         }).compileComponents();

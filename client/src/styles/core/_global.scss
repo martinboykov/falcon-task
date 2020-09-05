@@ -23,12 +23,17 @@ body {
     padding-right: var(--spacer);
     @include transition(padding);
 }
-
+.desktop {
+    display: block;
+}
+.mobile {
+    display: none;
+}
 @include mq($lg) {
-    #tf {
-        .container {
-            padding-left: var(--spacer);
-            padding-right: var(--spacer);
-        }
+    .desktop {
+        display: none;
+    }
+    .mobile {
+        display: block;
     }
 }
