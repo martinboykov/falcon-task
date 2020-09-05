@@ -1,0 +1,18 @@
+#app {
+    .mat-raised-button {
+        min-width: 6.4rem;
+        line-height: calc(2.8 / 1.4);
+        padding: 0 1.6rem;
+        border-radius: 0.4rem;
+    }
+    .mat-icon-button {
+    }
+    .mat-icon {
+        line-height: 2.4rem;
+        height: 2.4rem;
+        width: 2.4rem;
+    }
+    .material-icons {
+        font-size: 2.4rem;
+    }
+}

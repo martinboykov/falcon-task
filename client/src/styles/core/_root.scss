@@ -4,24 +4,24 @@
     --primary-bg: #fff;
     --secondary-text: rgba(0, 0, 0, 0.87);
 
-    --small-spacer: 10px;
-    --spacer: 20px;
-    --big-spacer: 30px;
+    --small-spacer: 1rem;
+    --spacer: 2rem;
+    --big-spacer: 3rem;
 
-    --header-height: 64px;
+    --header-height: 6.4rem;
 }
 
 @include mq($lg) {
     :root {
-        --small-spacer: 5px;
-        --spacer: 10px;
-        --big-spacer: 15px;
+        --small-spacer: 0.5rem;
+        --spacer: 1rem;
+        --big-spacer: 1.5rem;
     }
 }
 
 @include mq($md) {
     :root {
-        --header-height: 56px;
+        --header-height: 5.6rem;
     }
 }
 @include mq($sm) {

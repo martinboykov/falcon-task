@@ -6,12 +6,9 @@
     background-color: $primary;
 }
 .header {
+    display: block;
     position: relative;
     z-index: 3;
-}
-main {
-    // padding-top: var(--spacer);
-    // padding-bottom: var(--spacer);
 }
 .side-nav-container {
     position: absolute;
@@ -35,8 +32,7 @@ main {
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 240px;
+        width: 24rem;
         max-width: 100%;
     }
 }
-

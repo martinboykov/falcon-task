@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     background-color: var(--primary);
-    height: var(--header-height);
     .side-nav-toggle-button {
         color: var(--primary-text);
     }
@@ -13,7 +12,7 @@
         align-items: center;
     }
     img {
-        width: 120px;
+        width: 12rem;
     }
 }
 
@@ -21,11 +20,12 @@
     .side-nav-list {
         padding-top: 0;
         .side-nav-list-item {
+            height: 4.8rem;
             &.active {
                 background: var(--sidenav-links-active-bg);
             }
             .item-icon {
-                margin-right: 10px;
+                margin-right: 1rem;
             }
         }
     }
@@ -33,7 +33,7 @@
 @include mq($sm) {
     .container {
         img {
-            width: 100px;
+            width: 10rem;
         }
     }
 }

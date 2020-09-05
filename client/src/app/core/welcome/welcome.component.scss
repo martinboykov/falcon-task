@@ -13,6 +13,9 @@
         h1 {
             max-width: 20ch;
         }
+        a {
+            font-size: 2.4rem;
+        }
     }
     .image-wrapper {
         width: 60%;
@@ -38,6 +41,7 @@
             }
             a {
                 width: min-content;
+                font-size: 2.4rem;
             }
         }
         .image-wrapper {
@@ -52,6 +56,10 @@
             h1 {
                 font-size: clamp(2rem, 8vw, 3.2rem);
                 line-height: 1.333;
+            }
+            a {
+                width: min-content;
+                font-size: clamp(1.4rem, 8vw, 2.4rem);
             }
         }
     }
