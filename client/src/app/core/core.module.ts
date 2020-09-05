@@ -7,6 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { SideNavListComponent } from './navigation/side-nav-list/side-nav-list.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const materialModules = [
     MatSidenavModule,
@@ -17,7 +18,7 @@ const materialModules = [
 ];
 
 @NgModule({
-    declarations: [SideNavListComponent, HeaderComponent],
+    declarations: [SideNavListComponent, HeaderComponent, WelcomeComponent],
     imports: [AppRoutingModule, ...materialModules],
     exports: [
         AppRoutingModule,
