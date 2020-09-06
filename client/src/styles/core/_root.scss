@@ -9,6 +9,8 @@
     --big-spacer: 3rem;
 
     --header-height: 6.4rem;
+    --sidenav-links-active-bg: rgba(0, 0, 0, 0.04);
+    --header-nav-links-after-before-bg: var(--primary-text);
 }
 
 @include mq($lg) {
