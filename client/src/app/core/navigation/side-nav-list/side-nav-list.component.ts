@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./side-nav-list.component.scss'],
 })
 export class SideNavListComponent implements OnInit {
-    @Input() drawer;
     constructor() {}
 
     ngOnInit(): void {}
