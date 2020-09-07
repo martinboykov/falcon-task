@@ -1,26 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { SideNavListComponent } from './navigation/side-nav-list/side-nav-list.component';
+import { HeaderComponent } from './navigation/header/header.component';
 
 const materialModules = [
+    MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTableModule,
-    MatPaginatorModule,
+    MatToolbarModule,
+    MatListModule,
 ];
 @NgModule({
-    declarations: [],
-    imports: [CommonModule, FormsModule, ...materialModules],
-    exports: [CommonModule, FormsModule, ...materialModules],
+    declarations: [SideNavListComponent, HeaderComponent],
+    imports: [CommonModule, ...materialModules, RouterModule],
+    exports: [...materialModules, SideNavListComponent, HeaderComponent],
+    providers: [],
 })
 export class SharedModule {}

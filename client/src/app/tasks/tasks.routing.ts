@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { TasksComponent } from './tasks.component';
+import { TasksComponent } from './components/tasks.component';
 
 export const TasksRoutes: Routes = [
     {
