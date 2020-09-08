@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Subject, of, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { map, concatMap } from 'rxjs/operators';
-import { Task } from 'src/app/tasks/models/task.model';
+import { Task, TaskState } from 'src/app/tasks/models/task.model';
 
 const urlTasks = environment.apiUrl + '/tasks';
 
@@ -12,7 +11,7 @@ const urlTasks = environment.apiUrl + '/tasks';
 })
 export class TasksService {
     tasks: Task[] = [];
-    tasksSub = new BehaviorSubject<Task[]>(this.tasks);
+    tasksSubject = new BehaviorSubject<Task[]>(this.tasks);
 
     constructor(private http: HttpClient) {}
 
@@ -21,33 +20,44 @@ export class TasksService {
             .get<Task[]>(urlTasks, {
                 params: new HttpParams(),
             })
-            .subscribe((tasks: any) => {
-                this.tasksSub.next(tasks !== null ? tasks : []);
+            .subscribe((res: Task[]) => {
+                this.tasks = res;
+                this.tasksSubject.next(res);
             });
     }
     getById(id: string) {
-        return this.http
-            .get<Task[]>(urlTasks + `/${id}`)
-            .subscribe((task) => {});
+        return this.http.get<Task>(urlTasks + `/${id}`).subscribe();
     }
     add(task: Task) {
         const newTask = {
             ...task,
+            state: TaskState.started,
         };
-        return this.http.post<Task>(urlTasks, newTask).subscribe((response) => {
-            console.log(response);
+        return this.http.post<Task>(urlTasks, newTask).subscribe((res) => {
+            this.tasks = [...this.tasks, newTask];
+            this.tasksSubject.next(this.tasks);
         });
     }
-    update(task: Task) {
+    update(taskUpdated: Task) {
         return this.http
-            .patch(urlTasks + `/${task.id}`, task)
-            .subscribe((response) => {
-                console.log(response);
+            .patch(urlTasks + `/${taskUpdated.id}`, taskUpdated)
+            .subscribe((res) => {
+                this.tasks = [
+                    ...this.tasks.map((task) => {
+                        if (task.id === taskUpdated.id) {
+                            return taskUpdated;
+                        } else {
+                            return task;
+                        }
+                    }),
+                ];
+                this.tasksSubject.next(this.tasks);
             });
     }
     delete(id: string) {
-        return this.http.delete(urlTasks + `/${id}`).subscribe((response) => {
-            console.log(response);
+        return this.http.delete(urlTasks + `/${id}`).subscribe((res) => {
+            this.tasks = [...this.tasks.filter((task) => task.id !== id)];
+            this.tasksSubject.next(this.tasks);
         });
     }
 }

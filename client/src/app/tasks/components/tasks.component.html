@@ -1,3 +1,14 @@
-<div class="container">
-  <p>tasks works!</p>
+<div class="tasks-panel">
+  <div class="header">
+    <a mat-raised-button
+       [routerLink]="['/tasks']"
+       color="primary">Add Task</a>
+  </div>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="All Tasks">
+      <app-tasks-list></app-tasks-list>
+    </mat-tab>
+
+  </mat-tab-group>
+
 </div>

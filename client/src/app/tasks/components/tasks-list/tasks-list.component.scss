@@ -1,0 +1,15 @@
+@import 'core/variables';
+
+.filter-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--spacer);
+}
+.filter {
+    width: 40%;
+}
+.mat-header-cell,
+.mat-cell {
+    justify-content: center;
+}

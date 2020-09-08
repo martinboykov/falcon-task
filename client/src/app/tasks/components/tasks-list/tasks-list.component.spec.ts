@@ -1,22 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TasksComponent } from './tasks.component';
+
+import { TasksListComponent } from './tasks-list.component';
+import { tasksServiceStub } from '../../tests/task.service-stub';
 import { TasksService } from 'src/app/core/services/tasks.service';
-import { tasksServiceStub } from '../tests/task.service-stub';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe('TasksComponent', () => {
-    let component: TasksComponent;
-    let fixture: ComponentFixture<TasksComponent>;
+describe('TasksListComponent', () => {
+    let component: TasksListComponent;
+    let fixture: ComponentFixture<TasksListComponent>;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TasksComponent],
+            declarations: [TasksListComponent],
             providers: [{ provide: TasksService, useValue: tasksServiceStub }],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TasksComponent);
+        fixture = TestBed.createComponent(TasksListComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

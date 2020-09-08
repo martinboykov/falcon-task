@@ -1,0 +1,79 @@
+<div class="filter-container">
+  <mat-form-field class="filter">
+    <input matInput
+           type="text"
+           placeholder="Filter..."
+           (keyup)="doFilter($event.target.value)">
+  </mat-form-field>
+</div>
+<mat-table [dataSource]="tasks"
+           matSort>
+  <ng-container matColumnDef="id">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef
+                     mat-sort-header> id# </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="title">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef
+                     mat-sort-header> Title </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.title }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef
+                     mat-sort-header> Description </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="state">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef
+                     mat-sort-header>Completion</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button
+              (click)="onStateChage(element)">
+        <ng-template [ngIf]="element.state === 'started'"
+                     [ngIfElse]="completed">
+          <mat-icon class="mat-18"
+                    title="started">work_outline</mat-icon>
+        </ng-template>
+        <ng-template #completed>
+          <mat-icon class="mat-18"
+                    title="completed">work</mat-icon>
+        </ng-template>
+
+      </button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="update">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef>Update</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <a mat-icon-button
+         [routerLink]="['/tasks']">
+        <mat-icon class="mat-18"
+                  title="update task">system_update_alt</mat-icon>
+      </a>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="delete">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef>Delete</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button
+              (click)="onDelete(element.id)">
+        <mat-icon class="mat-18"
+                  title="delete task">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator #paginator
+               [length]="100"
+               [pageSize]="10"
+               [pageSizeOptions]="[1, 5, 10, 25, 100]">
+</mat-paginator>

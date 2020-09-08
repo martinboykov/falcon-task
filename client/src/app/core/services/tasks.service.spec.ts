@@ -2,23 +2,17 @@ import {
     HttpClientTestingModule,
     HttpTestingController,
 } from '@angular/common/http/testing';
-import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-
+import { TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
 import { TasksService } from './tasks.service';
 import { Task } from 'src/app/tasks/models/task.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { TASKS } from 'src/app/tasks/tests/test.tasks';
 const urlTasks = environment.apiUrl + '/tasks';
-const task: Task = {
-    id: '1',
-    title: 'test',
-    description: 'teset',
-};
-const tasks: Task[] = [
-    { id: '1', title: 'test', description: 'teset' },
-    { id: '2', title: 'test', description: 'teset' },
-];
+const task: Task = TASKS[0];
+const tasks: Task[] = TASKS;
+
 describe('TasksService', () => {
     let service: TasksService;
     let httpClient: HttpClient;
@@ -51,7 +45,7 @@ describe('TasksService', () => {
             expect(req.request.method).toEqual('GET');
 
             req.flush(tasks);
-            expect(service.tasksSub.value.length).toBe(2);
+            expect(service.tasksSubject.value.length).toBe(2);
         });
     });
     describe('getById', () => {
@@ -65,7 +59,7 @@ describe('TasksService', () => {
                 urlTasks + `/${task.id}`
             );
             expect(req.request.method).toEqual('GET');
-            req.flush(task);
+            req.flush(task.id);
         });
     });
     describe('add', () => {

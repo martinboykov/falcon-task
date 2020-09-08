@@ -14,6 +14,7 @@
             max-width: 20ch;
         }
         a {
+            width: min-content;
             font-size: 2.4rem;
         }
     }
@@ -38,10 +39,6 @@
             padding-left: 0;
             h1 {
                 text-align: center;
-            }
-            a {
-                width: min-content;
-                font-size: 2.4rem;
             }
         }
         .image-wrapper {

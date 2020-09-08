@@ -7,9 +7,9 @@ import { TasksService } from '../../core/services/tasks.service';
     styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
-    constructor(private tasksS: TasksService) {}
+    constructor(private tasksService: TasksService) {}
 
     ngOnInit(): void {
-        this.tasksS.getAll();
+        this.tasksService.getAll();
     }
 }
