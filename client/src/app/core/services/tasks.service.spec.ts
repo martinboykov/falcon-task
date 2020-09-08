@@ -8,7 +8,7 @@ import { TasksService } from './tasks.service';
 import { Task } from 'src/app/tasks/models/task.model';
 import { Subscription, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { TASKS } from 'src/app/tasks/tests/test.tasks';
+import { TASKS } from 'src/app/tasks/testing/test.tasks';
 const urlTasks = environment.apiUrl + '/tasks';
 const task: Task = TASKS[0];
 const tasks: Task[] = TASKS;

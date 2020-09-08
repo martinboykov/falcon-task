@@ -67,17 +67,17 @@ describe('SideNavListComponent', () => {
         const ankors = de.queryAll(By.css('a'));
         const home = ankors.filter((ankor) => {
             return ankor.nativeElement.innerText.toLowerCase().includes('home');
-        })[0];
+        })[0].nativeElement;
         const task = ankors.filter((ankor) => {
             return ankor.nativeElement.innerText.toLowerCase().includes('task');
-        })[0];
+        })[0].nativeElement;
 
-        home.nativeElement.click();
+        home.click();
         tick();
         fixture.detectChanges();
         expect(location.path()).toBe('/');
 
-        task.nativeElement.click();
+        task.click();
         tick();
         fixture.detectChanges();
         expect(location.path()).toBe('/tasks');

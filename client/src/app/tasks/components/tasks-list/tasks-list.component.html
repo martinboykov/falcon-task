@@ -33,7 +33,8 @@
                      mat-sort-header>Completion</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <button mat-icon-button
-              (click)="onStateChage(element)">
+              (click)="onStateChage(element)"
+              class="btn-state">
         <ng-template [ngIf]="element.state === 'started'"
                      [ngIfElse]="completed">
           <mat-icon class="mat-18"
@@ -52,7 +53,8 @@
                      *matHeaderCellDef>Update</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <a mat-icon-button
-         [routerLink]="['/tasks']">
+         [routerLink]="['edit', element.id]"
+         class="router-link">
         <mat-icon class="mat-18"
                   title="update task">system_update_alt</mat-icon>
       </a>
@@ -63,7 +65,8 @@
                      *matHeaderCellDef>Delete</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <button mat-icon-button
-              (click)="onDelete(element.id)">
+              (click)="onDelete(element.id)"
+              class="btn-delete">
         <mat-icon class="mat-18"
                   title="delete task">delete</mat-icon>
       </button>

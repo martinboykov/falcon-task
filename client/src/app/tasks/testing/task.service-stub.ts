@@ -1,10 +1,9 @@
-import { BehaviorSubject } from 'rxjs';
-import { Task } from '../models/task.model';
+import {  of } from 'rxjs';
 import { TASKS } from './test.tasks';
 
 export const tasksServiceStub = {
     tasks: TASKS,
-    tasksSubject: new BehaviorSubject<Task[]>(TASKS),
+    tasksSubject: of(TASKS),
     getAll: () => {},
     getById: () => {},
     add: () => {},

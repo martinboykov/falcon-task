@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TaskEditComponent } from './task-edit.component';
-import { tasksServiceStub } from '../../tests/task.service-stub';
+import { tasksServiceStub } from '../../testing/task.service-stub';
 import { TasksService } from 'src/app/core/services/tasks.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -26,5 +25,4 @@ describe('TaskEditComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
 });

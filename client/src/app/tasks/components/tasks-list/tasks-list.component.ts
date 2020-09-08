@@ -52,15 +52,10 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
     doFilter(value: string) {
         this.tasks.filter = value.trim().toLowerCase();
     }
-    onUpdate(task: Task) {
-        this.tasksService.update(task);
-    }
     onDelete(id: string) {
         this.tasksService.delete(id);
     }
     onStateChage(task: Task) {
-        console.log('task.state: ', task.state);
-
         if (task.state === TaskState.started.toString()) {
             task = {
                 ...task,
