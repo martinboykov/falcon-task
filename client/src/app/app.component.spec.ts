@@ -3,7 +3,6 @@ import { AppComponent } from './app.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-
 describe('AppComponent', () => {
     let app: AppComponent;
     let fixture: ComponentFixture<AppComponent>;
@@ -11,8 +10,7 @@ describe('AppComponent', () => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule],
             declarations: [AppComponent],
-            providers: [],
-            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
         }).compileComponents();
     }));
     beforeEach(() => {
