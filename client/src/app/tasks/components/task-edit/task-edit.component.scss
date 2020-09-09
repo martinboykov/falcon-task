@@ -1,0 +1,45 @@
+@import 'core/variables';
+@import 'core/mixins';
+.form-section {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--big-spacer);
+}
+h1 {
+    font-size: 2.8rem;
+}
+.form-card {
+    width: 80%;
+}
+.form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.form-content {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: var(--big-spacer);
+}
+.mat-card-actions {
+    margin: 0;
+}
+.form-field {
+    width: 100%;
+}
+
+.form-hints {
+    text-align: left;
+}
+
+@include mq($lg) {
+    .form-card {
+        width: 100%;
+    }
+}

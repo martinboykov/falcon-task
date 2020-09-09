@@ -52,8 +52,8 @@ describe('TasksService', () => {
         it('should get the task', () => {
             // make a fake request
             const result = service.getById(task.id);
-            expect(result).toBeInstanceOf(Subscription);
-
+            expect(result).toBeInstanceOf(Observable);
+            result.subscribe();
             // expect "GET" request
             const req = httpTestingController.expectOne(
                 urlTasks + `/${task.id}`
@@ -65,8 +65,8 @@ describe('TasksService', () => {
     describe('add', () => {
         it('should make POST req', () => {
             const result = service.add(task);
-            expect(result).toBeInstanceOf(Subscription);
-
+            expect(result).toBeInstanceOf(Observable);
+            result.subscribe();
             const req = httpTestingController.expectOne(urlTasks);
             expect(req.request.method).toEqual('POST');
             req.flush(task);
@@ -75,8 +75,8 @@ describe('TasksService', () => {
     describe('update', () => {
         it('should make PATCH req', () => {
             const result = service.update(task);
-            expect(result).toBeInstanceOf(Subscription);
-
+            expect(result).toBeInstanceOf(Observable);
+            result.subscribe();
             const req = httpTestingController.expectOne(
                 urlTasks + `/${task.id}`
             );

@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Task, TaskState } from 'src/app/tasks/models/task.model';
+import { map, tap } from 'rxjs/operators';
 
 const urlTasks = environment.apiUrl + '/tasks';
 
@@ -26,33 +27,37 @@ export class TasksService {
             });
     }
     getById(id: string) {
-        return this.http.get<Task>(urlTasks + `/${id}`).subscribe();
+        return this.http.get<Task>(urlTasks + `/${id}`);
     }
     add(task: Task) {
         const newTask = {
             ...task,
             state: TaskState.started,
         };
-        return this.http.post<Task>(urlTasks, newTask).subscribe((res) => {
-            this.tasks = [...this.tasks, newTask];
-            this.tasksSubject.next(this.tasks);
-        });
+        return this.http.post<Task>(urlTasks, newTask).pipe(
+            tap((res) => {
+                this.tasks = [...this.tasks, res];
+                this.tasksSubject.next(this.tasks);
+            })
+        );
     }
     update(taskUpdated: Task) {
         return this.http
             .patch(urlTasks + `/${taskUpdated.id}`, taskUpdated)
-            .subscribe((res) => {
-                this.tasks = [
-                    ...this.tasks.map((task) => {
-                        if (task.id === taskUpdated.id) {
-                            return taskUpdated;
-                        } else {
-                            return task;
-                        }
-                    }),
-                ];
-                this.tasksSubject.next(this.tasks);
-            });
+            .pipe(
+                tap((res: Task) => {
+                    this.tasks = [
+                        ...this.tasks.map((task) => {
+                            if (task.id === taskUpdated.id) {
+                                return res;
+                            } else {
+                                return task;
+                            }
+                        }),
+                    ];
+                    this.tasksSubject.next(this.tasks);
+                })
+            );
     }
     delete(id: string) {
         return this.http.delete(urlTasks + `/${id}`).subscribe((res) => {
