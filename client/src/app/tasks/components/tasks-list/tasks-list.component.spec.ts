@@ -68,7 +68,7 @@ describe('TasksListComponent', () => {
         expect(headerCells[0].nativeElement.innerHTML).toMatch('id');
         expect(headerCells[1].nativeElement.innerHTML).toMatch('Title');
         expect(headerCells[2].nativeElement.innerHTML).toMatch('Description');
-        expect(headerCells[3].nativeElement.innerHTML).toMatch('Completion');
+        expect(headerCells[3].nativeElement.innerHTML).toMatch('State');
         expect(headerCells[4].nativeElement.innerHTML).toMatch('Update');
         expect(headerCells[5].nativeElement.innerHTML).toMatch('Delete');
     });

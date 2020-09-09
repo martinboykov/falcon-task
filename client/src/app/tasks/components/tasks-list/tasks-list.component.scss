@@ -1,4 +1,5 @@
 @import 'core/variables';
+@import 'core/mixins';
 
 .filter-container {
     display: flex;
@@ -9,7 +10,78 @@
 .filter {
     width: 40%;
 }
+.mat-header-cell {
+    font-weight: 500;
+}
 .mat-header-cell,
 .mat-cell {
     justify-content: center;
+    font-size: 1.4rem;
+}
+.mat-column-title,
+.mat-column-description {
+    justify-content: flex-start;
+}
+.material-icons,
+.mat-icon {
+    font-size: 2rem;
+}
+
+.mat-column-id,
+.mat-column-state,
+.mat-column-update,
+.mat-column-delete {
+    max-width: 12rem;
+}
+.mat-cell:first-of-type,
+.mat-header-cell:first-of-type,
+.mat-footer-cell:first-of-type {
+    padding-left: 2.4rem;
+}
+.mat-cell:last-of-type,
+.mat-header-cel:last-of-type,
+.mat-header-cel:last-of-type {
+    padding-right: 2.4rem;
+}
+
+@include mq($lg) {
+    .mat-header-cell,
+    .mat-cell {
+        font-size: 1.2rem;
+    }
+    .mat-column-id {
+        display: none;
+    }
+    .mat-column-id,
+    .mat-column-state,
+    .mat-column-update,
+    .mat-column-delete {
+        max-width: 8rem;
+    }
+    .mat-cell:first-of-type,
+    .mat-header-cell:first-of-type,
+    .mat-footer-cell:first-of-type {
+        padding-left: 0;
+    }
+    .mat-cell:last-of-type,
+    .mat-header-cell:last-of-type,
+    .mat-footer-cell:last-of-type {
+        padding-right: 0;
+    }
+}
+@include mq($md) {
+    .mat-column-id,
+    .mat-column-state,
+    .mat-column-update,
+    .mat-column-delete {
+        max-width: 6rem;
+    }
+}
+@include mq($sm) {
+    .mat-column-id,
+    .mat-column-state,
+    .mat-column-update,
+    .mat-column-delete {
+        max-width: 5rem;
+    }
 }

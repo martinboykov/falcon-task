@@ -11,26 +11,32 @@
   <ng-container matColumnDef="id">
     <mat-header-cell mat-header-cell
                      *matHeaderCellDef
-                     mat-sort-header> id# </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
+                     mat-sort-header
+                     class="id"> id# </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="id"> {{element.id }} </mat-cell>
   </ng-container>
   <ng-container matColumnDef="title">
     <mat-header-cell mat-header-cell
                      *matHeaderCellDef
-                     mat-sort-header> Title </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.title }} </mat-cell>
+                     mat-sort-header
+                     class="title"> Title </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="title"> {{element.title }} </mat-cell>
   </ng-container>
   <ng-container matColumnDef="description">
     <mat-header-cell mat-header-cell
                      *matHeaderCellDef
-                     mat-sort-header> Description </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                     mat-sort-header
+                     class="description"> Description </mat-header-cell>
+    <mat-cell *matCellDef="let element"
+              class="description"> {{element.description}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="state">
     <mat-header-cell mat-header-cell
                      *matHeaderCellDef
-                     mat-sort-header>Completion</mat-header-cell>
+                     mat-sort-header>State</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <button mat-icon-button
               (click)="onStateChage(element)"
