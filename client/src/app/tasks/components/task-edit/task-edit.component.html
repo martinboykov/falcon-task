@@ -38,12 +38,14 @@
                   color="primary"
                   type="button"
                   (click)="onEditTask()"
+                  class='btn-edit'
                   [disabled]="!taskForm.valid">Update</button>
         </ng-container>
         <ng-template #addMode>
           <button mat-raised-button
                   color="primary"
                   type="submit"
+                  class='btn-submit'
                   [disabled]="!taskForm.valid">Create</button>
         </ng-template>
         <a mat-raised-button

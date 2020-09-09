@@ -6,7 +6,7 @@ export const tasksServiceStub = {
     tasksSubject: of(TASKS),
     getAll: () => {},
     getById: () => of(TASKS[0]),
-    add: () => {},
-    update: () => {},
+    add: () => of(TASKS[0]),
+    update: () => of(TASKS[0]),
     delete: () => {},
 };

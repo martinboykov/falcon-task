@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { Validators, FormBuilder } from '@angular/forms';
 import { TasksService } from 'src/app/core/services/tasks.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { of } from 'rxjs';
+import { Subscription, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
 @Component({
@@ -11,8 +11,9 @@ import { mergeMap } from 'rxjs/operators';
     templateUrl: './task-edit.component.html',
     styleUrls: ['./task-edit.component.scss'],
 })
-export class TaskEditComponent implements OnInit {
+export class TaskEditComponent implements OnInit, OnDestroy {
     task: Task;
+    taskSubscription: Subscription;
     id: string;
     editMode: boolean;
     success: boolean;
@@ -41,15 +42,17 @@ export class TaskEditComponent implements OnInit {
         this.id = this.route.snapshot.paramMap.get('id');
         if (this.id) {
             this.editMode = true;
-            this.tasksService.getById(this.id).subscribe((res: Task | null) => {
-                if (this.editMode) {
-                    this.task = res;
-                    this.taskForm.patchValue({
-                        title: this.task.title,
-                        description: this.task.description,
-                    });
-                }
-            });
+            this.taskSubscription = this.tasksService
+                .getById(this.id)
+                .subscribe((res: Task) => {
+                    if (this.editMode) {
+                        this.task = res;
+                        this.taskForm.patchValue({
+                            title: this.task.title,
+                            description: this.task.description,
+                        });
+                    }
+                });
         } else {
             this.editMode = false;
         }
@@ -58,6 +61,7 @@ export class TaskEditComponent implements OnInit {
     onSubmit() {
         this.tasksService.add(this.taskForm.value).subscribe((res) => {
             this.success = true;
+            this.taskForm.reset();
         });
     }
     onEditTask() {
@@ -65,8 +69,14 @@ export class TaskEditComponent implements OnInit {
             ...this.task,
             ...this.taskForm.value,
         };
+
         this.tasksService.update(this.task).subscribe((res) => {
             this.success = true;
         });
+    }
+    ngOnDestroy() {
+        if (this.taskSubscription) {
+            this.taskSubscription.unsubscribe();
+        }
     }
 }

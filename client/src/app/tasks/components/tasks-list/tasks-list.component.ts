@@ -1,7 +1,6 @@
 import {
     Component,
     OnInit,
-    Input,
     OnDestroy,
     ViewChild,
     AfterViewInit,
@@ -44,11 +43,7 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.tasks.sort = this.sort;
         this.tasks.paginator = this.paginator;
     }
-    ngOnDestroy() {
-        if (this.tasksSubscription) {
-            this.tasksSubscription.unsubscribe();
-        }
-    }
+
     doFilter(value: string) {
         this.tasks.filter = value.trim().toLowerCase();
     }
@@ -67,6 +62,11 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
                 state: TaskState.started,
             };
         }
-        this.tasksService.update(task);
+        this.tasksService.update(task).subscribe();
+    }
+    ngOnDestroy() {
+        if (this.tasksSubscription) {
+            this.tasksSubscription.unsubscribe();
+        }
     }
 }

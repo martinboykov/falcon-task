@@ -15,6 +15,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatTableHarness } from '@angular/material/table/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
+import { Subscription, EMPTY } from 'rxjs';
 
 @Component({
     selector: 'app-mock',
@@ -94,8 +95,18 @@ describe('TasksListComponent', () => {
         const button = await loader.getAllHarnesses(
             MatButtonHarness.with({ selector: '.btn-state' })
         );
+        let tableRows = de.queryAll(By.css('.mat-row'));
+
         await button[0].click();
-        await button[1].click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(tableRows[0].nativeElement.innerHTML).toMatch('work_outline');
+        await button[0].click();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        tableRows = de.queryAll(By.css('.mat-row'));
+        expect(tableRows[0].nativeElement.innerHTML).toMatch('work_outline');
         expect(spy).toHaveBeenCalledTimes(2);
         expect(spyServiceUpdate).toHaveBeenCalledTimes(2);
     });
@@ -127,5 +138,12 @@ describe('TasksListComponent', () => {
         expect(spy).toHaveBeenCalled();
         expect((await rows[0].getCellTextByColumnName()).id).toMatch('202');
     });
+    it('should unsubscribe from tasks onDestroy', async () => {
+        const spy = spyOn(
+            component.tasksSubscription,
+            'unsubscribe'
+        ).and.callThrough();
+        component.ngOnDestroy();
+        expect(spy).toHaveBeenCalled();
+    });
 });
-
