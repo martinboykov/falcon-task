@@ -12,18 +12,20 @@
       <img src="./assets/images/logo.svg"
            alt="logo image">
     </a>
-    <div class="nav">
+    <nav class="nav">
       <a routerLink="/"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{exact: true}"
+         aria-label="Link to home"
          class="nav-link">
         Home
       </a>
       <a routerLink="/tasks"
          routerLinkActive="active"
+         aria-label="Link to tasks"
          class="nav-link">
         Tasks
       </a>
-    </div>
+    </nav>
   </div>
 </mat-toolbar>

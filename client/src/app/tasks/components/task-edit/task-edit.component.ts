@@ -61,7 +61,6 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     onSubmit() {
         this.tasksService.add(this.taskForm.value).subscribe((res) => {
             this.success = true;
-            this.taskForm.reset();
         });
     }
     onEditTask() {

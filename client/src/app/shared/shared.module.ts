@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { SideNavListComponent } from './navigation/side-nav-list/side-nav-list.component';
 import { HeaderComponent } from './navigation/header/header.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const materialModules = [
     MatSidenavModule,
@@ -15,6 +16,7 @@ const materialModules = [
     MatIconModule,
     MatToolbarModule,
     MatListModule,
+    MatTooltipModule,
 ];
 @NgModule({
     declarations: [SideNavListComponent, HeaderComponent],

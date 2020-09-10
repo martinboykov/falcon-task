@@ -40,6 +40,8 @@
     <mat-cell *matCellDef="let element">
       <button mat-icon-button
               (click)="onStateChage(element)"
+              matTooltip="Change state"
+              aria-label="Change the state of the task"
               class="btn-state">
         <ng-template [ngIf]="element.state === 'started'"
                      [ngIfElse]="completed">
@@ -59,6 +61,8 @@
                      *matHeaderCellDef>Update</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <a mat-icon-button
+         aria-label="Update this task"
+         matTooltip="Update task"
          [routerLink]="['edit', element.id]"
          class="router-link">
         <mat-icon class="mat-18"
@@ -71,10 +75,11 @@
                      *matHeaderCellDef>Delete</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <button mat-icon-button
+              aria-label="Delete this task"
+              matTooltip="Delete task"
               (click)="onDelete(element.id)"
               class="btn-delete">
-        <mat-icon class="mat-18"
-                  title="delete task">delete</mat-icon>
+        <mat-icon class="mat-18">delete</mat-icon>
       </button>
     </mat-cell>
   </ng-container>

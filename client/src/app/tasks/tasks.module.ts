@@ -14,7 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
 const materialModules = [
     MatTabsModule,
     MatTableModule,
