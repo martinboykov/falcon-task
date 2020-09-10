@@ -13,6 +13,6 @@ export class RecipesResolverService implements Resolve<Subscription> {
     constructor(private recipesService: TasksService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.recipesService.getAll();
+        return this.recipesService.getAll().subscribe();
     }
 }

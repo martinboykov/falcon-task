@@ -12,8 +12,10 @@ import { MatButtonHarness } from '@angular/material/button/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 
-const task: Task = TASKS[0];
-const tasks: Task[] = TASKS;
+const task: Task = {
+    ...TASKS[0],
+};
+const tasks: Task[] = [...TASKS];
 @Component({
     selector: 'app-mock',
     template: '',

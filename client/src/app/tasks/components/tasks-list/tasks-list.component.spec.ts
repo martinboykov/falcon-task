@@ -9,13 +9,12 @@ import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TASKS } from '../../testing/test.tasks';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Task } from '../../models/task.model';
+import { Task, TaskState } from '../../models/task.model';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatTableHarness } from '@angular/material/table/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
-import { Subscription, EMPTY } from 'rxjs';
 
 @Component({
     selector: 'app-mock',
@@ -55,11 +54,10 @@ describe('TasksListComponent', () => {
         loader = TestbedHarnessEnvironment.loader(fixture);
         de = fixture.debugElement;
         component.tasks = new MatTableDataSource<Task>();
-        component.tasks.data = TASKS;
+        component.tasks.data = [...TASKS];
         fixture.detectChanges();
         await fixture.whenStable();
     });
-
     it('should create', () => {
         expect(component).toBeTruthy();
     });
@@ -88,34 +86,27 @@ describe('TasksListComponent', () => {
     });
     it('should have call onStateChange', async () => {
         const spy = spyOn(component, 'onStateChage').and.callThrough();
-        const spyServiceUpdate = spyOn(
-            tasksServiceStub,
-            'update'
-        ).and.callThrough();
         const button = await loader.getAllHarnesses(
             MatButtonHarness.with({ selector: '.btn-state' })
         );
-        let tableRows = de.queryAll(By.css('.mat-row'));
-
         await button[0].click();
-        fixture.detectChanges();
-        await fixture.whenStable();
-
-        expect(tableRows[0].nativeElement.innerHTML).toMatch('work_outline');
-        await button[0].click();
-        await fixture.whenStable();
-        fixture.detectChanges();
-        tableRows = de.queryAll(By.css('.mat-row'));
-        expect(tableRows[0].nativeElement.innerHTML).toMatch('work_outline');
-        expect(spy).toHaveBeenCalledTimes(2);
-        expect(spyServiceUpdate).toHaveBeenCalledTimes(2);
+        expect(spy).toHaveBeenCalled();
+    });
+    it('should have call onStateChange', async () => {
+        const task: Task = {
+            ...TASKS[0],
+        };
+        let res = component.onStateChage(task);
+        expect(res.state).toBe(TaskState.completed);
+        res = component.onStateChage(res);
+        expect(res.state).toBe(TaskState.started);
     });
     it('should have call onDelete', async () => {
         const spy = spyOn(component, 'onDelete').and.callThrough();
         const spyServiceDelete = spyOn(
             tasksServiceStub,
             'delete'
-        ).and.callFake(() => {});
+        ).and.callThrough();
         const button = await loader.getHarness(
             MatButtonHarness.with({ selector: '.btn-delete' })
         );
@@ -123,7 +114,6 @@ describe('TasksListComponent', () => {
         expect(spy).toHaveBeenCalled();
         expect(spyServiceDelete).toHaveBeenCalled();
     });
-
     it('should have call doFilter and filter tasks', async () => {
         const spy = spyOn(component, 'doFilter').and.callThrough();
         const inputField = await loader.getHarness<MatInputHarness>(

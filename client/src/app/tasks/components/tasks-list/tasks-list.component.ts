@@ -48,10 +48,10 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.tasks.filter = value.trim().toLowerCase();
     }
     onDelete(id: string) {
-        this.tasksService.delete(id);
+        this.tasksService.delete(id).subscribe();
     }
     onStateChage(task: Task) {
-        if (task.state === TaskState.started.toString()) {
+        if (task.state === TaskState.started) {
             task = {
                 ...task,
                 state: TaskState.completed,
@@ -63,6 +63,7 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
             };
         }
         this.tasksService.update(task).subscribe();
+        return task;
     }
     ngOnDestroy() {
         if (this.tasksSubscription) {
