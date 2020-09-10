@@ -1,0 +1,26 @@
+section {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+h2 {
+    margin: 0;
+}
+mat-progress-bar {
+    margin: var(--big-spacer);
+}
+.center {
+    text-align: center;
+}
+.flex {
+    display: flex;
+}
+
+section div:nth-child(1) {
+    margin-top: calc(4 * var(--big-spacer));
+}
+
+section div:nth-child(2) {
+    width: 50%;
+}

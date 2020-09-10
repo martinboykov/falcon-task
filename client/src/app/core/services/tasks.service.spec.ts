@@ -10,6 +10,8 @@ import { Subscription, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TASKS } from 'src/app/tasks/testing/test.tasks';
 import { Router } from '@angular/router';
+import { NotificationService } from './notification.service';
+import { notificationsServiceStub } from 'src/app/tasks/testing/notification.service-stub';
 const urlTasks = environment.apiUrl + '/tasks';
 const task: Task = {
     ...TASKS[0],
@@ -30,6 +32,10 @@ describe('TasksService', () => {
             providers: [
                 TasksService,
                 { provide: Router, useValue: routerStub },
+                {
+                    provide: NotificationService,
+                    useValue: notificationsServiceStub,
+                },
             ],
         });
         service = TestBed.inject(TasksService);
@@ -122,8 +128,5 @@ describe('TasksService', () => {
             expect(req.request.method).toEqual('DELETE');
             req.flush(task);
         });
-    });
-    afterEach(() => {
-        httpMock.verify();
     });
 });

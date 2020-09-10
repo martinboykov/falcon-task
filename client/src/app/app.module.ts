@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [AppComponent, WelcomeComponent],
@@ -17,6 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
         CoreModule,
         SharedModule,
         AppRoutingModule,
+        ToastrModule.forRoot({
+            timeOut: 10000,
+            positionClass: 'toast-top-right',
+            maxOpened: 3,
+            countDuplicates: true,
+            preventDuplicates: true,
+        }),
     ],
     bootstrap: [AppComponent],
 })

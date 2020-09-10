@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 const materialModules = [
     MatTabsModule,
     MatTableModule,
@@ -22,6 +23,7 @@ const materialModules = [
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatSnackBarModule,
 ];
 @NgModule({
     declarations: [TasksComponent, TasksListComponent, TaskEditComponent],

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RecipesResolverService } from './tasks/tasks.resolver';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
     {
@@ -19,7 +20,7 @@ const routes: Routes = [
 
     {
         path: '**',
-        redirectTo: '', // TODO: errorpage
+        component: NotFoundComponent,
     },
 ];
 @NgModule({

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Task, TaskState } from 'src/app/tasks/models/task.model';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { NotificationService } from './notification.service';
 
 const urlTasks = environment.apiUrl + '/tasks';
 
@@ -15,7 +16,11 @@ export class TasksService {
     tasks: Task[] = [];
     tasksSubject = new BehaviorSubject<Task[]>(this.tasks);
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+        private notifier: NotificationService
+    ) {}
 
     getAll(): Observable<Task[]> {
         return this.http
@@ -30,7 +35,11 @@ export class TasksService {
             );
     }
     getById(id: string): Observable<Task> {
-        return this.http.get<Task>(urlTasks + `/${id}`);
+        return this.http.get<Task>(urlTasks + `/${id}`).pipe(
+            tap(() => {
+                this.notifier.showInfo('Task loaded successfully');
+            })
+        );
     }
     add(task: Task): Observable<Task> {
         const newTask = {
@@ -42,6 +51,7 @@ export class TasksService {
                 this.tasks = [...this.tasks, res];
                 this.tasksSubject.next(this.tasks);
                 this.router.navigate(['/tasks']);
+                this.notifier.showSuccess('Task was added successfully');
             })
         );
     }
@@ -60,6 +70,7 @@ export class TasksService {
                         }),
                     ];
                     this.tasksSubject.next(this.tasks);
+                    this.notifier.showSuccess('Task was updated successfully');
                 })
             );
     }
@@ -68,6 +79,7 @@ export class TasksService {
             tap((res: Task) => {
                 this.tasks = [...this.tasks.filter((task) => task.id !== id)];
                 this.tasksSubject.next(this.tasks);
+                this.notifier.showSuccess('Task was deleted successfully');
             })
         );
     }
