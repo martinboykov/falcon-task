@@ -2,28 +2,34 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class ErrorService {
-  constructor() { }
+    constructor() {}
 
-  getClientMessage(error: Error): string {
-    if (!navigator.onLine) {
-      return 'No Internet Connection';
+    getClientMessage(error: Error): string {
+        if (!navigator.onLine) {
+            return 'No Internet Connection';
+        }
+        return error.message ? error.message : error.toString();
     }
-    return error.message ? error.message : error.toString();
-  }
 
-  getClientStack(error: Error): string {
-    return error.stack;
-  }
+    getClientStack(error: Error): string {
+        return error.stack;
+    }
 
-  getServerMessage(error: HttpErrorResponse): string {
-    return error.error.message;
-  }
+    getServerMessage(error: HttpErrorResponse): string {
+        console.log(error);
+        console.log(error.error);
 
-  getServerStack(error: HttpErrorResponse): string {
-    // handle stack trace
-    return 'stack';
-  }
+        return error.message;
+    }
+    getServerTitle(error: HttpErrorResponse): string {
+        return error.error;
+    }
+
+    getServerStack(error: HttpErrorResponse): string {
+        // handle stack trace
+        return 'stack';
+    }
 }

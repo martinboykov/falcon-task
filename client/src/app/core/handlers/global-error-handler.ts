@@ -28,11 +28,13 @@ export class GlobalErrorHandler implements ErrorHandler {
     public handleError(error: Error | HttpErrorResponse) {
         this.ngZone.run(() => {
             let message;
+            let title;
             let stackTrace;
             let httpErrorCode;
             if (error instanceof HttpErrorResponse) {
                 // Server Error
                 message = this.errorService.getServerMessage(error);
+                title = this.errorService.getServerTitle(error);
                 stackTrace = this.errorService.getServerStack(error);
                 httpErrorCode = error.status;
                 switch (httpErrorCode) {
@@ -43,27 +45,20 @@ export class GlobalErrorHandler implements ErrorHandler {
                         );
                         break;
                     case HttpError.BAD_REQUEST: // 400
-                        this.notifier.showError(
-                            message,
-                            this.DEFAULT_ERROR_TITLE
-                        );
+                        this.notifier.showError(message, title);
                         break;
                     case HttpError.NOT_FOUND: // 404
-                        this.notifier.showError(message, 'Not found!');
+                        message = 'There is no such data on the server!';
+                        this.notifier.showError(message, title);
                         break;
                     case HttpError.TIMEOUT: // 408
-                        this.notifier.showError(
-                            'Too much time has elapsed',
-                            'Not fount in time!'
-                        );
+                        this.notifier.showError(message, title);
                         break;
                     case HttpError.INTERNAL_SERVER_ERROR: // 500
-                        this.notifier.showError(
-                            'Invalid route or server crash',
-                            this.DEFAULT_ERROR_TITLE
-                        );
+                        this.notifier.showError(message, title);
                         break;
                     case HttpError.SERVER_REQUEST_LIMIT_REACHED: // 429
+                        this.notifier.showError(message, title); // for future - not implemented yet
                         break;
                     default:
                         this.notifier.showError(
@@ -73,7 +68,7 @@ export class GlobalErrorHandler implements ErrorHandler {
                 }
             } else {
                 // Client Error
-                this.notifier.showError(this.DEFAULT_ERROR_TITLE, 'Ooops!');
+                this.notifier.showError('Ooops!', this.DEFAULT_ERROR_TITLE);
             }
         });
     }
