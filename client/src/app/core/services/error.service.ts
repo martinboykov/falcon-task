@@ -19,9 +19,6 @@ export class ErrorService {
     }
 
     getServerMessage(error: HttpErrorResponse): string {
-        console.log(error);
-        console.log(error.error);
-
         return error.message;
     }
     getServerTitle(error: HttpErrorResponse): string {

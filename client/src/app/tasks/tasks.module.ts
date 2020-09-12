@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StoreModule } from '@ngrx/store';
+import { taskReducer } from './store/task.reducer';
 const materialModules = [
     MatTabsModule,
     MatTableModule,
@@ -34,6 +36,7 @@ const materialModules = [
         RouterModule.forChild(TasksRoutes),
         SharedModule,
         ...materialModules,
+        StoreModule.forFeature('tasks', taskReducer),
     ],
     exports: [TasksComponent, TasksListComponent, TaskEditComponent],
 })

@@ -11,7 +11,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Task, TaskState } from '../../models/task.model';
 import { TasksService } from 'src/app/core/services/tasks.service';
 import { Subscription } from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import * as fromTask from '../../store/task.selector';
 @Component({
     selector: 'app-tasks-list',
     templateUrl: './tasks-list.component.html',
@@ -30,14 +31,17 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
     ];
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    constructor(private tasksService: TasksService) {}
+    constructor(
+        private tasksService: TasksService,
+        private store: Store<fromTask.State>
+    ) {}
 
     ngOnInit() {
-        this.tasksSubscription = this.tasksService.tasksSubject.subscribe(
-            (tasks) => {
+        this.tasksSubscription = this.store
+            .select(fromTask.getTasks)
+            .subscribe((tasks) => {
                 this.tasks.data = tasks;
-            }
-        );
+            });
     }
     ngAfterViewInit() {
         this.tasks.sort = this.sort;

@@ -9,9 +9,7 @@
     padding-bottom: 0 !important;
 }
 .side-nav-toggle-button {
-    margin-left: -40px;
-    opacity: 0;
-    @include transition();
+    display: none;
 }
 a {
     list-style: none;
@@ -79,8 +77,7 @@ a {
 }
 @include mq($lg) {
     .side-nav-toggle-button {
-        opacity: 1;
-        margin-left: 0px;
+        display: block;
     }
     .nav {
         display: none;

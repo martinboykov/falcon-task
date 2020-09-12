@@ -13,20 +13,26 @@ import { switchMap, take } from 'rxjs/operators';
 import { Task } from './models/task.model';
 
 @Injectable({ providedIn: 'root' })
-export class TasksResolverService implements Resolve<Task[]> {
+export class TaskResolverService implements Resolve<Task> {
     constructor(
         private tasksService: TasksService,
         private store: Store<fromTask.State>
     ) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.store.select(fromTask.getTasks).pipe(
+        const id: string = route.params.id;
+
+        return this.store.select(fromTask.getTask, { id }).pipe(
             take(1),
-            switchMap((tasks: Task[]) => {
-                if (tasks.length === 0) {
-                    return this.tasksService.getAll();
+            switchMap((task: Task) => {
+                if (!task) {
+                    console.log(task);
+
+                    return this.tasksService.getById(id);
                 } else {
-                    return of(tasks);
+                    console.log('emty');
+
+                    return of(task);
                 }
             })
         );

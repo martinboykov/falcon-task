@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { RecipesResolverService } from './tasks/tasks.resolver';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { TasksResolverService } from './tasks/tasks.resolver';
 
 const routes: Routes = [
     {
@@ -14,7 +14,7 @@ const routes: Routes = [
         loadChildren: () =>
             import('./tasks/tasks.module').then((m) => m.TasksModule),
         resolve: {
-            data: RecipesResolverService,
+            data: TasksResolverService,
         },
     },
 

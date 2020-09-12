@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-
+import { of } from 'rxjs';
 const task: Task = {
     ...TASKS[0],
 };
@@ -32,7 +32,6 @@ describe('TaskEditComponent for Edit Mode', () => {
         fixture = TestBed.createComponent(TaskEditComponent);
         loader = TestbedHarnessEnvironment.loader(fixture);
         component = fixture.componentInstance;
-        component.ngOnInit();
         fixture.detectChanges();
     });
 
@@ -52,6 +51,7 @@ describe('TaskEditComponent for Edit Mode', () => {
         const titleError = component.hasError('title', 'required');
         expect(titleError).toBeFalse();
     });
+
     it('should have title field width required error', () => {
         component.title.setValue('');
         fixture.detectChanges();
@@ -166,7 +166,7 @@ describe('TaskEditComponent for Add Mode', () => {
         expect(spyComp).not.toHaveBeenCalled();
         expect(spyService).not.toHaveBeenCalled();
     });
-    it('should not be able to update task if form is unvalid', async () => {
+    it('should be able to update task if form is valid', async () => {
         const spyComp = spyOn(component, 'onSubmit').and.callThrough();
         const spyService = spyOn(tasksServiceStub, 'add').and.callThrough();
         const button = await loader.getHarness(
@@ -214,6 +214,9 @@ function createTestBed(id) {
                             },
                         },
                     },
+                    data: of({
+                        data: task,
+                    }),
                 },
             },
         ],

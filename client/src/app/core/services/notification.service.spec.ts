@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { NotificationService } from './notification.service';
 import { ToastrService } from 'ngx-toastr';
-import { toastrServiceStub } from 'src/app/tasks/testing/toastr.service-stub';
+import { toastrServiceStub } from 'src/app/testing/toastr.service-stub';
 
 export const routerStub = {
     navigate: jasmine.createSpy('navigate'),

@@ -9,13 +9,16 @@ import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TASKS } from '../../testing/test.tasks';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Task, TaskState } from '../../models/task.model';
+import { Task, TaskState as TaskStateE } from '../../models/task.model';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatTableHarness } from '@angular/material/table/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
-
+import { Store, StoreModule } from '@ngrx/store';
+import * as fromTask from '../../store/task.reducer';
+import { of } from 'rxjs';
+const testStore = jasmine.createSpyObj('Store', ['select']);
 @Component({
     selector: 'app-mock',
     template: '',
@@ -29,9 +32,13 @@ describe('TasksListComponent', () => {
     let router: Router;
     let de: DebugElement;
     let loader: HarnessLoader;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
+                StoreModule.forRoot({
+                    ...fromTask.taskReducer,
+                }),
                 RouterTestingModule.withRoutes([
                     {
                         path: 'tasks',
@@ -41,7 +48,10 @@ describe('TasksListComponent', () => {
                 MatTableModule,
             ],
             declarations: [TasksListComponent],
-            providers: [{ provide: TasksService, useValue: tasksServiceStub }],
+            providers: [
+                { provide: TasksService, useValue: tasksServiceStub },
+                { provide: Store, useValue: testStore },
+            ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         }).compileComponents();
     }));
@@ -50,6 +60,7 @@ describe('TasksListComponent', () => {
         fixture = TestBed.createComponent(TasksListComponent);
         router = TestBed.inject(Router);
         location = TestBed.inject(Location);
+        testStore.select.and.returnValue(of(TASKS));
         component = fixture.componentInstance;
         loader = TestbedHarnessEnvironment.loader(fixture);
         de = fixture.debugElement;
@@ -97,9 +108,9 @@ describe('TasksListComponent', () => {
             ...TASKS[0],
         };
         let res = component.onStateChage(task);
-        expect(res.state).toBe(TaskState.completed);
+        expect(res.state).toBe(TaskStateE.completed);
         res = component.onStateChage(res);
-        expect(res.state).toBe(TaskState.started);
+        expect(res.state).toBe(TaskStateE.started);
     });
     it('should have call onDelete', async () => {
         const spy = spyOn(component, 'onDelete').and.callThrough();
