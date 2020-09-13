@@ -52,13 +52,15 @@ export class GlobalErrorHandler implements ErrorHandler {
                         this.notifier.showError(message, title);
                         break;
                     case HttpError.TIMEOUT: // 408
+                        message = 'There is no response from the server!';
                         this.notifier.showError(message, title);
                         break;
                     case HttpError.INTERNAL_SERVER_ERROR: // 500
+                        message = 'Server crashed!';
                         this.notifier.showError(message, title);
                         break;
                     case HttpError.SERVER_REQUEST_LIMIT_REACHED: // 429
-                        this.notifier.showError(message, title); // for future - not implemented yet
+                        this.notifier.showError(message, title);
                         break;
                     default:
                         this.notifier.showError(

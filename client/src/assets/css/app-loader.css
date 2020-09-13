@@ -1,0 +1,80 @@
+.app-loading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    text-align: center;
+    font-size: 60px;
+    background: black;
+    transition: opacity 400ms ease;
+}
+
+.app-loading.loaded {
+    opacity: 0;
+}
+
+.app-loader {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.app-loader .b {
+    border-radius: 50%;
+    border-left: 4px solid;
+    border-right: 4px solid;
+    border-top: 4px solid transparent !important;
+    border-bottom: 4px solid transparent !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rot 2s infinite;
+}
+
+.app-loader .line1 {
+    border-color: #ef6c00;
+    width: 120px;
+    height: 120px;
+}
+
+.app-loader .line2 {
+    border-color: #558b2f;
+    width: 100px;
+    height: 100px;
+    animation-delay: 0.2s;
+}
+
+.app-loader .line3 {
+    border-color: #0288d1;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0.4s;
+}
+
+.app-loader .line4 {
+    border-color: #f44336;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0.6s;
+}
+
+@keyframes rot {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(-180deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+}
