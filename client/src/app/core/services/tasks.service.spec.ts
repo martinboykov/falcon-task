@@ -5,7 +5,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { TasksService } from './tasks.service';
-import { Task, TaskState as TaskStateE } from 'src/app/tasks/models/task.model';
+import { Task, TaskState } from 'src/app/tasks/models/task.model';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TASKS } from 'src/app/tasks/testing/test.tasks';
@@ -13,9 +13,10 @@ import { Router } from '@angular/router';
 import { NotificationService } from './notification.service';
 import { notificationsServiceStub } from 'src/app/testing/notification.service-stub';
 import { Store } from '@ngrx/store';
-import * as TaskAction from './../../tasks/store/task.actions';
 import { TasksState } from 'src/app/tasks/store/task.reducer';
-const testStore = jasmine.createSpyObj<Store<TasksState>>('Store', ['dispatch']);
+const testStore = jasmine.createSpyObj<Store<TasksState>>('Store', [
+    'dispatch',
+]);
 const urlTasks = environment.apiUrl + '/tasks';
 const task: Task = {
     ...TASKS[0],
@@ -24,7 +25,7 @@ const taskUpdateMock: Task = {
     ...task,
     title: 'updated',
     description: 'updated',
-    state: TaskStateE.completed,
+    state: TaskState.completed,
 };
 const tasks: Task[] = [...TASKS];
 export const routerStub = {

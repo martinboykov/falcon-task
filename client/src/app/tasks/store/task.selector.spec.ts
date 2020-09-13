@@ -6,7 +6,6 @@ describe('TaskSelector', () => {
         it('should return the tasks', () => {
             const tasks = TASKS;
             const tasksState: TasksState = {
-                task: null,
                 tasks: TASKS,
             };
             expect(getTasks.projector(tasksState)).toEqual(tasks);
@@ -16,10 +15,11 @@ describe('TaskSelector', () => {
         it('should return the task', () => {
             const task = TASKS[0];
             const tasksState: TasksState = {
-                task: null,
                 tasks: TASKS,
             };
-            expect(getTask.projector(tasksState, { id: task.id })).toEqual(task);
+            expect(getTask.projector(tasksState, { id: task.id })).toEqual(
+                task
+            );
         });
     });
 });

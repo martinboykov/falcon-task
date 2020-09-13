@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TASKS } from '../../testing/test.tasks';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Task, TaskState as TaskStateE } from '../../models/task.model';
+import { Task, TaskState } from '../../models/task.model';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
@@ -108,9 +108,9 @@ describe('TasksListComponent', () => {
             ...TASKS[0],
         };
         let res = component.onStateChage(task);
-        expect(res.state).toBe(TaskStateE.completed);
+        expect(res.state).toBe(TaskState.completed);
         res = component.onStateChage(res);
-        expect(res.state).toBe(TaskStateE.started);
+        expect(res.state).toBe(TaskState.started);
     });
     it('should have call onDelete', async () => {
         const spy = spyOn(component, 'onDelete').and.callThrough();

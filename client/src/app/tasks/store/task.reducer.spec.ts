@@ -5,7 +5,6 @@ let initialState: TasksState;
 describe('Reducer: Task', () => {
     it('GET_TASKS', () => {
         initialState = {
-            task: null,
             tasks: [],
         };
         const action = { type: GET_TASKS, payload: TASKS } as any;
@@ -14,7 +13,6 @@ describe('Reducer: Task', () => {
     });
     it('ADD_TASK', () => {
         initialState = {
-            task: null,
             tasks: [],
         };
         const task = { ...TASKS[0] };
@@ -26,7 +24,6 @@ describe('Reducer: Task', () => {
     });
     it('UPDATE_TASK', () => {
         initialState = {
-            task: null,
             tasks: TASKS,
         };
         const task = { ...TASKS[0], title: 'updated', description: 'updated' };
@@ -38,7 +35,6 @@ describe('Reducer: Task', () => {
     });
     it('DELETE_TASK', () => {
         initialState = {
-            task: null,
             tasks: TASKS,
         };
         const action = { type: DELETE_TASK, payload: TASKS[0].id } as any;
@@ -47,7 +43,6 @@ describe('Reducer: Task', () => {
     });
     it('default', () => {
         initialState = {
-            task: null,
             tasks: TASKS,
         };
         const action = { type: 'NONE' } as any;

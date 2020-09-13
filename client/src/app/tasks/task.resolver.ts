@@ -26,12 +26,8 @@ export class TaskResolverService implements Resolve<Task> {
             take(1),
             switchMap((task: Task) => {
                 if (!task) {
-                    console.log(task);
-
                     return this.tasksService.getById(id);
                 } else {
-                    console.log('emty');
-
                     return of(task);
                 }
             })

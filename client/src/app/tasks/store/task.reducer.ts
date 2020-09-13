@@ -9,7 +9,6 @@ import * as fromRoot from '../../store/app.reducer';
 import { Task } from '../models/task.model';
 
 export interface TasksState {
-    task: Task;
     tasks: Task[];
 }
 
@@ -18,7 +17,6 @@ export interface State extends fromRoot.State {
 }
 
 const initialState: TasksState = {
-    task: null,
     tasks: [],
 };
 
