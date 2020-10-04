@@ -32,7 +32,21 @@
     <mat-cell *matCellDef="let element"
               class="description"> {{element.description}} </mat-cell>
   </ng-container>
-
+  <ng-container matColumnDef="priority">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef
+                     mat-sort-header>Priority</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button
+              (click)="onPriorityChage(element)"
+              matTooltip="{{element.priority === -1 ? 'not set': (priorityTypes | enumList)[element.priority].value}}"
+              aria-label="Change the priority of the task"
+              class="btn-priority">
+        <mat-icon class="mat-18"
+                  [ngStyle]="{'color':getColor(element.priority)}">priority_high</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
   <ng-container matColumnDef="state">
     <mat-header-cell mat-header-cell
                      *matHeaderCellDef
@@ -45,12 +59,10 @@
               class="btn-state">
         <ng-template [ngIf]="element.state === 'started'"
                      [ngIfElse]="completed">
-          <mat-icon class="mat-18"
-                    title="started">work_outline</mat-icon>
+          <mat-icon class="mat-18">work_outline</mat-icon>
         </ng-template>
         <ng-template #completed>
-          <mat-icon class="mat-18"
-                    title="completed">work</mat-icon>
+          <mat-icon class="mat-18">work</mat-icon>
         </ng-template>
 
       </button>
@@ -65,8 +77,7 @@
          matTooltip="Update task"
          [routerLink]="['edit', element.id]"
          class="router-link">
-        <mat-icon class="mat-18"
-                  title="update task">system_update_alt</mat-icon>
+        <mat-icon class="mat-18">system_update_alt</mat-icon>
       </a>
     </mat-cell>
   </ng-container>

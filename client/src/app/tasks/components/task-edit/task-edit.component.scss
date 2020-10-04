@@ -32,6 +32,19 @@ h1 {
 }
 .form-field {
     width: 100%;
+    margin-bottom: var(--big-spacer);
+    &:last-child {
+        margin-bottom: 0;
+    }
+    &.select {
+        width: 30%;
+        @include mq($md) {
+            width: 50%;
+        }
+        @include mq($sm) {
+            width: 100%;
+        }
+    }
 }
 
 .form-hints {

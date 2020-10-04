@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Task } from '../../models/task.model';
+import { Task, PriorityType } from '../../models/task.model';
 import { Validators, FormBuilder } from '@angular/forms';
 import { TasksService } from 'src/app/core/services/tasks.service';
 import { ActivatedRoute, Data } from '@angular/router';
@@ -15,11 +15,12 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     id: string;
     editMode: boolean;
     success: boolean;
+    priorityTypes = PriorityType;
     taskForm = this.fb.group({
         title: ['', [Validators.required, Validators.maxLength(60)]],
         description: ['', [Validators.required, Validators.maxLength(100)]],
+        priority: ['-1'],
     });
-
     constructor(
         private tasksService: TasksService,
         private fb: FormBuilder,
@@ -30,6 +31,9 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     }
     get description() {
         return this.taskForm.get('description');
+    }
+    get priority() {
+        return this.taskForm.get('priority');
     }
     public hasError = (controlName: string, errorName: string) => {
         return this.taskForm.controls[controlName].hasError(errorName);
@@ -45,6 +49,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
                     this.taskForm.patchValue({
                         title: this.task.title,
                         description: this.task.description,
+                        priority: this.task.priority
                     });
                 }
             });
@@ -63,7 +68,6 @@ export class TaskEditComponent implements OnInit, OnDestroy {
             ...this.task,
             ...this.taskForm.value,
         };
-
         this.taskSubscription.add(
             this.tasksService.update(this.task).subscribe(() => {
                 this.success = true;

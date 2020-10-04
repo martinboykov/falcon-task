@@ -13,6 +13,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StoreModule } from '@ngrx/store';
@@ -26,6 +27,7 @@ const materialModules = [
     MatInputModule,
     MatCardModule,
     MatSnackBarModule,
+    MatSelectModule
 ];
 @NgModule({
     declarations: [TasksComponent, TasksListComponent, TaskEditComponent],

@@ -8,7 +8,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Task, TaskState } from '../../models/task.model';
+import { Task, TaskState, PriorityType } from '../../models/task.model';
 import { TasksService } from 'src/app/core/services/tasks.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -21,10 +21,13 @@ import * as fromTask from '../../store/task.selector';
 export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
     tasks = new MatTableDataSource<Task>();
     tasksSubscription: Subscription;
+    // proirities: Priority[] = priorities;
+    priorityTypes = PriorityType;
     displayedColumns = [
         'id',
         'title',
         'description',
+        'priority',
         'state',
         'update',
         'delete',
@@ -68,6 +71,30 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.tasksService.update(task).subscribe();
         return task;
+    }
+    onPriorityChage(task: Task) {
+        let newPriority = task.priority + 1;
+        if (newPriority > 2) {
+            newPriority = -1;
+        }
+        task = {
+            ...task,
+            priority: newPriority,
+        };
+        this.tasksService.update(task).subscribe();
+        return task;
+    }
+    getColor(priority) {
+        switch (priority) {
+            case -1:
+                return 'grey';
+            case 0:
+                return 'green';
+            case 1:
+                return 'orange';
+            case 2:
+                return 'red';
+        }
     }
     ngOnDestroy() {
         if (this.tasksSubscription) {

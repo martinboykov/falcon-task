@@ -12,6 +12,11 @@ import { MatButtonHarness } from '@angular/material/button/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { of } from 'rxjs';
+import { EnumListPipe } from 'src/app/shared/pipes';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
 const task: Task = {
     ...TASKS[0],
 };
@@ -192,6 +197,10 @@ function createTestBed(id) {
     return TestBed.configureTestingModule({
         imports: [
             FormsModule,
+            MatSelectModule,
+            MatInputModule,
+            MatFormFieldModule,
+            BrowserAnimationsModule,
             ReactiveFormsModule,
             RouterTestingModule.withRoutes([
                 {
@@ -200,7 +209,7 @@ function createTestBed(id) {
                 },
             ]),
         ],
-        declarations: [TaskEditComponent],
+        declarations: [TaskEditComponent, EnumListPipe],
         providers: [
             FormBuilder,
             { provide: TasksService, useValue: tasksServiceStub },

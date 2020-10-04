@@ -33,6 +33,8 @@ export class GlobalErrorHandler implements ErrorHandler {
             let httpErrorCode;
             if (error instanceof HttpErrorResponse) {
                 // Server Error
+                console.log('Server Error', error);
+
                 message = this.errorService.getServerMessage(error);
                 title = this.errorService.getServerTitle(error);
                 stackTrace = this.errorService.getServerStack(error);
@@ -70,6 +72,7 @@ export class GlobalErrorHandler implements ErrorHandler {
                 }
             } else {
                 // Client Error
+                console.log('Client Error', error);
                 this.notifier.showError('Ooops!', this.DEFAULT_ERROR_TITLE);
             }
         });

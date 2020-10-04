@@ -3,6 +3,7 @@ import { TasksListComponent } from './tasks-list.component';
 import { tasksServiceStub } from '../../testing/task.service-stub';
 import { TasksService } from 'src/app/core/services/tasks.service';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, Component } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { Location } from '@angular/common';
@@ -18,6 +19,11 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import * as fromTask from '../../store/task.reducer';
 import { of } from 'rxjs';
+import { EnumListPipe } from 'src/app/shared/pipes';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const testStore = jasmine.createSpyObj('Store', ['select']);
 @Component({
     selector: 'app-mock',
@@ -36,6 +42,11 @@ describe('TasksListComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
+                MatTooltipModule,
+                MatSelectModule,
+                MatInputModule,
+                MatFormFieldModule,
+                BrowserAnimationsModule,
                 StoreModule.forRoot({
                     ...fromTask.taskReducer,
                 }),
@@ -47,7 +58,7 @@ describe('TasksListComponent', () => {
                 ]),
                 MatTableModule,
             ],
-            declarations: [TasksListComponent],
+            declarations: [TasksListComponent, EnumListPipe],
             providers: [
                 { provide: TasksService, useValue: tasksServiceStub },
                 { provide: Store, useValue: testStore },
@@ -74,13 +85,14 @@ describe('TasksListComponent', () => {
     });
     it('should have correct amount of header cells', async () => {
         const headerCells = de.queryAll(By.css('.mat-header-cell'));
-        expect(headerCells.length).toBe(6);
+        expect(headerCells.length).toBe(7);
         expect(headerCells[0].nativeElement.innerHTML).toMatch('id');
         expect(headerCells[1].nativeElement.innerHTML).toMatch('Title');
         expect(headerCells[2].nativeElement.innerHTML).toMatch('Description');
-        expect(headerCells[3].nativeElement.innerHTML).toMatch('State');
-        expect(headerCells[4].nativeElement.innerHTML).toMatch('Update');
-        expect(headerCells[5].nativeElement.innerHTML).toMatch('Delete');
+        expect(headerCells[3].nativeElement.innerHTML).toMatch('Priority');
+        expect(headerCells[4].nativeElement.innerHTML).toMatch('State');
+        expect(headerCells[5].nativeElement.innerHTML).toMatch('Update');
+        expect(headerCells[6].nativeElement.innerHTML).toMatch('Delete');
     });
     it('should have correct amount of table rows', async () => {
         const tableRows = de.queryAll(By.css('.mat-row'));

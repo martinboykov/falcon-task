@@ -11,6 +11,8 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NotFoundComponent } from './not-found/not-found.component';
+import * as fromPipes from './pipes';
+
 const materialModules = [
     MatSidenavModule,
     MatButtonModule,
@@ -20,10 +22,17 @@ const materialModules = [
     MatTooltipModule,
     MatProgressBarModule,
 ];
+const pipes = [...fromPipes.ALL_SHARED_PIPES];
 @NgModule({
-    declarations: [SideNavListComponent, HeaderComponent, NotFoundComponent],
+    declarations: [
+        ...pipes,
+        SideNavListComponent,
+        HeaderComponent,
+        NotFoundComponent,
+    ],
     imports: [CommonModule, ...materialModules, RouterModule],
     exports: [
+        ...pipes,
         ...materialModules,
         SideNavListComponent,
         HeaderComponent,
