@@ -1,0 +1,25 @@
+<div class="tasks-panel">
+  <div class="header">
+    <a mat-raised-button
+       [routerLink]="['add']"
+       aria-label="Navigate to add new project page"
+       color="primary">Add Project</a>
+  </div>
+  <div class=" project-container">
+    <ng-container *ngFor="let project of projects | async">
+      <div class="project">
+        <div class="project-image">
+          <mat-icon aria-hidden="false"
+                    aria-label="logo for project"
+                    class="item-icon">list_alt</mat-icon>
+        </div>
+        <div class="discription">
+          <h2>{{project.title}}</h2>
+        </div>
+        <a [routerLink]="[project.id]"
+           aria-label="Navigate to details of the project"
+           color="accent"></a>
+      </div>
+    </ng-container>
+  </div>
+</div>

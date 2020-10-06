@@ -1,3 +1,5 @@
+import { Project } from 'src/app/projects/models/project.model';
+
 export enum PriorityType {
     low,
     medium,
@@ -13,4 +15,5 @@ export interface Task {
     description: string;
     state: TaskState;
     priority?: PriorityType;
+    project?: string;
 }

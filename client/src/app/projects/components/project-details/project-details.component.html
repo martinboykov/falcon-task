@@ -1,0 +1,23 @@
+<a mat-raised-button
+   [routerLink]="['/projects']"
+   aria-label="Navigate to projects list"
+   color="primary">Go Back</a>
+<div class="header">
+  <div class="text">
+    <h1>Title: {{($project | async).title}}</h1>
+    <p>Description: {{($project | async).description}}</p>
+  </div>
+  <div class="action">
+    <a mat-raised-button
+       [routerLink]="['/projects' , 'edit',  ($project | async).id]"
+       aria-label="Navigate to edit the project"
+       color="accent">Go to Edit</a>
+
+  </div>
+</div>
+
+<a mat-raised-button
+   [routerLink]="['add']"
+   aria-label="Navigate to add new task page"
+   color="accent">Add Task</a>
+<app-tasks-list [$tasks]="$tasks"></app-tasks-list>

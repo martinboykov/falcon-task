@@ -9,9 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/app.reducer';
+import * as fromApp from './store/app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { TasksModule } from './tasks/tasks.module';
+import { RouterModule } from '@angular/router';
+import * as fromProjects from './projects/store/project.reducer';
+import * as fromTasks from './tasks/store/task.reducer';
+import { ProjectsModule } from './projects/projects.module';
 
 @NgModule({
     declarations: [AppComponent, WelcomeComponent],
@@ -21,6 +26,8 @@ import { environment } from '../environments/environment';
         HttpClientModule,
         CoreModule,
         SharedModule,
+        TasksModule,
+        ProjectsModule,
         AppRoutingModule,
         ToastrModule.forRoot({
             timeOut: 10000,
@@ -29,12 +36,17 @@ import { environment } from '../environments/environment';
             countDuplicates: true,
             preventDuplicates: true,
         }),
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(fromApp.reducers),
+        // StoreModule.forRoot({
+        //     projects: fromProjects.projectReducer,
+        //     tasks: fromTasks.taskReducer,
+        // }),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production, // Restrict extension to log-only mode
         }),
     ],
+    exports: [],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

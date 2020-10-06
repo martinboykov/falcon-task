@@ -1,0 +1,19 @@
+@import 'core/variables';
+@import 'core/mixins';
+
+:host {
+  display: block;
+  margin: 2rem auto;
+  &>a {
+    margin-bottom: 2rem;
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  .action {
+    display: grid;
+    grid-gap: 1rem;
+  }
+}

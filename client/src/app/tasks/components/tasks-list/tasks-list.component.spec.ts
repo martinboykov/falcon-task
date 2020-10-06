@@ -151,12 +151,4 @@ describe('TasksListComponent', () => {
         expect(spy).toHaveBeenCalled();
         expect((await rows[0].getCellTextByColumnName()).id).toMatch('202');
     });
-    it('should unsubscribe from tasks onDestroy', async () => {
-        const spy = spyOn(
-            component.tasksSubscription,
-            'unsubscribe'
-        ).and.callThrough();
-        component.ngOnDestroy();
-        expect(spy).toHaveBeenCalled();
-    });
 });

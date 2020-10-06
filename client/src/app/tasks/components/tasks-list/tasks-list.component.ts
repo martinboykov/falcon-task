@@ -1,27 +1,27 @@
 import {
     Component,
     OnInit,
-    OnDestroy,
     ViewChild,
     AfterViewInit,
+    Input,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Task, TaskState, PriorityType } from '../../models/task.model';
 import { TasksService } from 'src/app/core/services/tasks.service';
-import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import * as fromTask from '../../store/task.selector';
+import { Project } from 'src/app/projects/models/project.model';
+import { Observable } from 'rxjs';
+
 @Component({
     selector: 'app-tasks-list',
     templateUrl: './tasks-list.component.html',
     styleUrls: ['./tasks-list.component.scss'],
 })
-export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TasksListComponent implements OnInit, AfterViewInit {
+    @Input() $tasks: Observable<Task[]>;
+    @Input() project: Project[];
     tasks = new MatTableDataSource<Task>();
-    tasksSubscription: Subscription;
-    // proirities: Priority[] = priorities;
     priorityTypes = PriorityType;
     displayedColumns = [
         'id',
@@ -34,17 +34,12 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
     ];
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    constructor(
-        private tasksService: TasksService,
-        private store: Store<fromTask.State>
-    ) {}
+    constructor(private tasksService: TasksService) {}
 
     ngOnInit() {
-        this.tasksSubscription = this.store
-            .select(fromTask.getTasks)
-            .subscribe((tasks) => {
-                this.tasks.data = tasks;
-            });
+        this.$tasks.subscribe((data) => {
+            this.tasks.data = data;
+        });
     }
     ngAfterViewInit() {
         this.tasks.sort = this.sort;
@@ -94,11 +89,6 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
                 return 'orange';
             case 2:
                 return 'red';
-        }
-    }
-    ngOnDestroy() {
-        if (this.tasksSubscription) {
-            this.tasksSubscription.unsubscribe();
         }
     }
 }

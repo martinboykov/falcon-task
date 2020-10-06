@@ -12,15 +12,15 @@ export interface TasksState {
     tasks: Task[];
 }
 
-export interface State extends fromRoot.State {
-    task: TasksState;
-}
+// export interface State extends fromRoot.State {
+//     task: TasksState;
+// }
 
 const initialState: TasksState = {
     tasks: [],
 };
 
-export function taskReducer(state = initialState, action: TaskActions) {
+export function taskReducer(state: TasksState = initialState, action: TaskActions) {
     switch (action.type) {
         case GET_TASKS:
             return {

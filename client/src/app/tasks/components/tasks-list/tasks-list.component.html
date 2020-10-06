@@ -6,6 +6,15 @@
            (keyup)="doFilter($event.target.value)">
   </mat-form-field>
 </div>
+<div class="tasks-panel">
+  <div class="header">
+    <a mat-raised-button
+       [routerLink]="['add']"
+       aria-label="Navigate to add new task page"
+       *ngIf="project"
+       color="primary">Add Task</a>
+  </div>
+</div>
 <mat-table [dataSource]="tasks"
            matSort>
   <ng-container matColumnDef="id">
@@ -75,7 +84,7 @@
       <a mat-icon-button
          aria-label="Update this task"
          matTooltip="Update task"
-         [routerLink]="['edit', element.id]"
+         [routerLink]="['/tasks/edit', element.id]"
          class="router-link">
         <mat-icon class="mat-18">system_update_alt</mat-icon>
       </a>

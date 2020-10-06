@@ -6,11 +6,11 @@
        color="primary">Go Back</a>
     <mat-card-title>
       <h1>
-        <span *ngIf="!editMode">Create a new task</span>
-        <span *ngIf="editMode">Edit this task</span>
+        <span *ngIf="!editMode">Create a new project</span>
+        <span *ngIf="editMode">Edit this project</span>
       </h1>
     </mat-card-title>
-    <form [formGroup]="taskForm"
+    <form [formGroup]="projectForm"
           autocomplete="off"
           novalidate
           (ngSubmit)="onSubmit()"
@@ -19,7 +19,7 @@
         <mat-form-field class="form-field">
           <input matInput
                  type="text"
-                 placeholder="Task's title"
+                 placeholder="Project's title"
                  formControlName="title"
                  id="title">
           <mat-hint class="form-hints">Not more then 60 characters long.</mat-hint>
@@ -29,22 +29,11 @@
         <mat-form-field class="form-field">
           <input matInput
                  type="text"
-                 placeholder="Task's description"
+                 placeholder="Project's description"
                  formControlName="description">
           <mat-hint>Not more then 100 characters long.</mat-hint>
           <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
           <mat-error *ngIf="hasError('description', 'maxlength')">You have more than 100 characters</mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field select">
-          <mat-label>Task priority</mat-label>
-          <mat-select formControlName="priority"
-                      name="priority">
-            <mat-option [value]="-1">none</mat-option>
-            <mat-option *ngFor="let priority of priorityTypes | enumList"
-                        [value]="priority.key">
-              {{priority.value}}
-            </mat-option>
-          </mat-select>
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
@@ -52,18 +41,34 @@
           <button mat-raised-button
                   color="accent"
                   type="button"
-                  (click)="onEditTask()"
+                  (click)="onEditProject()"
                   class='btn-edit'
-                  [disabled]="!taskForm.valid">Update</button>
+                  [disabled]="!projectForm.valid">Update</button>
+          <a mat-raised-button
+             (click)="onDelete()"
+             aria-label="Delete the project"
+             color="warn">Delete</a>
         </ng-container>
         <ng-template #addMode>
           <button mat-raised-button
                   color="primary"
                   type="submit"
                   class='btn-submit'
-                  [disabled]="!taskForm.valid">Create</button>
+                  [disabled]="!projectForm.valid">Create</button>
         </ng-template>
 
+        <!-- <a mat-raised-button
+           color="accent"
+           type="button"
+           [routerLink]="['/projects']">
+          <ng-container *ngIf="success;else onError">
+            <span>Return</span>
+          </ng-container>
+          <ng-template #onError>
+            <span>Cancel</span>
+          </ng-template>
+
+        </a> -->
       </mat-card-actions>
     </form>
   </mat-card>
