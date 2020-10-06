@@ -4,13 +4,14 @@ import {
     OnDestroy,
     ViewChild,
     AfterViewInit,
+    Input,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Task, TaskState } from '../../models/task.model';
 import { TasksService } from 'src/app/core/services/tasks.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromTask from '../../store/task.selector';
 @Component({
@@ -19,29 +20,26 @@ import * as fromTask from '../../store/task.selector';
     styleUrls: ['./tasks-list.component.scss'],
 })
 export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
+    @Input() tasksData: Observable<Task[]>;
     tasks = new MatTableDataSource<Task>();
     tasksSubscription: Subscription;
     displayedColumns = [
         'id',
         'title',
         'description',
+        'priority',
         'state',
         'update',
         'delete',
     ];
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    constructor(
-        private tasksService: TasksService,
-        private store: Store<fromTask.State>
-    ) {}
+    constructor(private tasksService: TasksService) {}
 
     ngOnInit() {
-        this.tasksSubscription = this.store
-            .select(fromTask.getTasks)
-            .subscribe((tasks) => {
-                this.tasks.data = tasks;
-            });
+        this.tasksData.subscribe((task) => {
+            this.tasks.data = task;
+        });
     }
     ngAfterViewInit() {
         this.tasks.sort = this.sort;
@@ -68,6 +66,33 @@ export class TasksListComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.tasksService.update(task).subscribe();
         return task;
+    }
+    onPriorityChage(task) {
+        let priority = task.priority + 1;
+        if (priority > 2) {
+            priority = 0;
+        }
+        const newTask = {
+            ...task,
+            priority,
+        };
+        this.tasksService.update(newTask).subscribe((res) => {
+            console.log(res);
+        });
+        return task;
+    }
+
+    getColor(priority) {
+        switch (priority) {
+            case 0:
+                return '';
+            case 1:
+                return 'accent';
+            case 2:
+                return 'warn';
+            default:
+                break;
+        }
     }
     ngOnDestroy() {
         if (this.tasksSubscription) {

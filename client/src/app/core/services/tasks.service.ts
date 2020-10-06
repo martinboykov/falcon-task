@@ -50,6 +50,7 @@ export class TasksService {
         const newTask = {
             ...task,
             state: TaskState.started,
+            priority: 0
         };
         return this.http.post<Task>(urlTasks, newTask).pipe(
             tap((res: Task) => {

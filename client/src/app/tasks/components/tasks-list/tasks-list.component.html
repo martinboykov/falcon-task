@@ -32,7 +32,22 @@
     <mat-cell *matCellDef="let element"
               class="description"> {{element.description}} </mat-cell>
   </ng-container>
+  <ng-container matColumnDef="priority">
+    <mat-header-cell mat-header-cell
+                     *matHeaderCellDef
+                     mat-sort-header>Priority</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button
+              (click)="onPriorityChage(element)"
+              matTooltip="Change {{element.priority}}"
+              aria-label="Change the Priority of the task"
+              class="btn-state"
+              [color]=getColor(element.priority) >
+        <mat-icon class="mat-18">priority_high</mat-icon>
 
+      </button>
+    </mat-cell>
+  </ng-container>
   <ng-container matColumnDef="state">
     <mat-header-cell mat-header-cell
                      *matHeaderCellDef
